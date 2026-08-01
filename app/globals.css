@@ -1,0 +1,326 @@
+@import "tailwindcss";
+
+/* ─── BRAND PALETTE ──────────────────────────────────────────────────────────
+   Velvet Black  #111011   → base background
+   Wine Violet   #5A2348   → primary accent / surfaces
+   Antique Gold  #B78A3A   → CTAs, highlights, shimmer
+   Silk Ivory    #E6D8BE   → primary text, off-white
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --velvet: #111011;
+  --velvet-surface: #1a121a;
+  --velvet-elevated: #22162200;
+
+  --violet: #5A2348;
+  --violet-light: #7a3060;
+  --violet-dim: rgba(90, 35, 72, 0.25);
+  --violet-border: rgba(90, 35, 72, 0.45);
+
+  --gold: #B78A3A;
+  --gold-bright: #d4a44a;
+  --gold-dim: rgba(183, 138, 58, 0.15);
+  --gold-border: rgba(183, 138, 58, 0.35);
+
+  --ivory: #E6D8BE;
+  --ivory-muted: rgba(230, 216, 190, 0.55);
+  --ivory-subtle: rgba(230, 216, 190, 0.18);
+}
+
+/* === BASE === */
+body {
+  background: var(--velvet);
+  color: var(--ivory);
+  font-family: var(--font-geist), system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === FONTS === */
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* === GLASS SURFACES (violet-tinted) === */
+.glass {
+  background: rgba(17, 10, 17, 0.88);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--violet-border);
+}
+
+.glass-elevated {
+  background: rgba(26, 14, 25, 0.95);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(90, 35, 72, 0.5);
+}
+
+.glass-violet {
+  background: rgba(90, 35, 72, 0.18);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(90, 35, 72, 0.35);
+}
+
+/* === GOLD CTA BUTTON === */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #B78A3A 0%, #9a7230 60%, #c49840 100%);
+  color: #0f0a02;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s ease;
+}
+
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #d4a44a, #B78A3A);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.btn-gold:hover {
+  transform: scale(1.03) translateY(-1px);
+  box-shadow: 0 0 28px rgba(183, 138, 58, 0.45), 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.btn-gold:hover::before { opacity: 1; }
+.btn-gold span, .btn-gold svg { position: relative; z-index: 1; }
+
+/* === GHOST BUTTON === */
+.btn-ghost {
+  border: 1px solid var(--ivory-subtle);
+  color: var(--ivory-muted);
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--gold-border);
+  color: var(--gold-bright);
+  background: var(--gold-dim);
+}
+
+/* === VIOLET SURFACE BUTTON === */
+.btn-violet {
+  background: var(--violet-dim);
+  border: 1px solid var(--violet-border);
+  color: var(--ivory);
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn-violet:hover {
+  background: rgba(90, 35, 72, 0.38);
+  border-color: var(--violet-light);
+}
+
+/* === TIMELINE SIDEBAR === */
+.timeline-line {
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  bottom: 16px;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    var(--violet-border) 15%,
+    rgba(183, 138, 58, 0.2) 50%,
+    var(--violet-border) 85%,
+    transparent 100%
+  );
+}
+
+/* === CONTENT CARDS === */
+.content-card {
+  background: rgba(26, 10, 22, 0.7);
+  border: 1px solid rgba(90, 35, 72, 0.3);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease,
+              transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.content-card:hover {
+  border-color: rgba(183, 138, 58, 0.3);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(183, 138, 58, 0.06);
+  transform: translateY(-2px);
+}
+
+/* === ACCORDION === */
+.accordion-trigger {
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid rgba(90, 35, 72, 0.25);
+  transition: background 0.15s ease;
+}
+
+.accordion-trigger:hover {
+  background: rgba(90, 35, 72, 0.1);
+}
+
+/* === PROGRESS === */
+.progress-track {
+  background: rgba(230, 216, 190, 0.08);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--violet), var(--gold));
+  border-radius: 99px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 10px rgba(183, 138, 58, 0.5);
+}
+
+/* === EDITORIAL ACCENT === */
+.accent-italic {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+/* === STEP NUMBER === */
+.step-badge {
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+}
+
+/* === TABLE === */
+.data-table th {
+  background: rgba(183, 138, 58, 0.08);
+  border-bottom: 1px solid var(--gold-border);
+  color: var(--gold-bright);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+}
+
+.data-table td {
+  border-bottom: 1px solid rgba(90, 35, 72, 0.2);
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  color: var(--ivory-muted);
+  line-height: 1.6;
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+
+/* === BENTO CARD === */
+.bento-card {
+  background: rgba(20, 10, 18, 0.9);
+  border: 1px solid rgba(90, 35, 72, 0.35);
+  border-radius: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bento-card:hover {
+  border-color: var(--gold-border);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+/* === IMAGE CONTAINERS === */
+.img-container-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-container-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    rgba(17,10,17,0.95) 0%,
+    rgba(17,10,17,0.5) 50%,
+    rgba(90,35,72,0.15) 100%
+  );
+}
+
+/* === DECORATIVE ORBS === */
+.orb-violet {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(90,35,72,0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.orb-gold {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(183,138,58,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--velvet); }
+::-webkit-scrollbar-thumb { background: var(--violet); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* === SELECTION === */
+::selection { background: rgba(90,35,72,0.6); color: var(--ivory); }
+
+/* === GOLD SHIMMER ANIMATION === */
+@keyframes goldShimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.text-gold-shimmer {
+  background: linear-gradient(90deg,
+    #B78A3A 0%, #d4a44a 30%, #f0c870 50%, #d4a44a 70%, #B78A3A 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: goldShimmer 5s infinite linear;
+}
+
+/* === NEON VIOLET GLOW (subtle) === */
+@keyframes violetPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(90,35,72,0.3); }
+  50%       { box-shadow: 0 0 40px rgba(90,35,72,0.6); }
+}
+
+.animate-violet-pulse {
+  animation: violetPulse 4s infinite ease-in-out;
+}
+
+/* === LANDING ANIMATIONS === */
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.animate-hero-in {
+  animation: heroIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-bounce-slow {
+  animation: bounceSlow 3s infinite ease-in-out;
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
