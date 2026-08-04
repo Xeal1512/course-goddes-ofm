@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Crown, Send, Menu, Search, TrendingUp } from "lucide-react";
-import { TELEGRAM_LINK, TELEGRAM_CONTACT } from "../data/course-data";
+import { Crown, MessageCircle, Menu, Search, TrendingUp } from "lucide-react";
+import { WHATSAPP_LINK } from "../data/course-data";
 
 interface HeaderProps {
   completedCount: number;
@@ -91,14 +91,14 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
-          {/* Telegram */}
+          {/* WhatsApp */}
           <a
-            href={TELEGRAM_LINK}
+            href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-ghost flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-medium"
           >
-            <Send className="h-3 w-3 text-sky-400" />
+            <MessageCircle className="h-3 w-3 text-green-400" />
             <span className="hidden sm:inline" style={{ color: "rgba(230,216,190,0.6)" }}>Soporte</span>
           </a>
         </div>
