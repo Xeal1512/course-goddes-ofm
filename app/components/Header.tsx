@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Crown, MessageCircle, Menu, Search, TrendingUp } from "lucide-react";
 import { WHATSAPP_LINK } from "../data/course-data";
+import { UserMenu } from "./UserMenu";
 
 interface HeaderProps {
   completedCount: number;
@@ -96,11 +97,13 @@ export const Header: React.FC<HeaderProps> = ({
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-ghost flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-medium"
+            className="btn-ghost flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-medium hidden lg:flex"
           >
             <MessageCircle className="h-3 w-3 text-green-400" />
             <span className="hidden sm:inline" style={{ color: "rgba(230,216,190,0.6)" }}>Soporte</span>
           </a>
+          
+          <UserMenu />
         </div>
       </div>
     </header>

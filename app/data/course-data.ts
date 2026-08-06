@@ -29,6 +29,7 @@ export interface CourseModule {
   badge?: string;
   summary: string;
   steps: ModuleStep[];
+  supportImages?: string[];
 }
 
 export const REFERRAL_LINK = "https://onlyfans.com?ref=538039483";
@@ -121,6 +122,9 @@ export const COURSE_MODULES: CourseModule[] = [
         ],
       }
     ],
+    supportImages: [
+      "/fotosdeapoyo/1/0a235653-7c36-45fd-a668-47eade1e9ba7.jpg"
+    ]
   },
   {
     id: "modulo-2",
@@ -167,6 +171,9 @@ export const COURSE_MODULES: CourseModule[] = [
         ],
       }
     ],
+    supportImages: [
+      "/fotosdeapoyo/2/40ed389a-f3e4-4667-a346-d3389526ae81.jpg"
+    ]
   },
   {
     id: "modulo-3",
@@ -231,6 +238,9 @@ export const COURSE_MODULES: CourseModule[] = [
         ],
       },
     ],
+    supportImages: [
+      "/fotosdeapoyo/3/IMG_9480.PNG"
+    ]
   },
   {
     id: "modulo-4",
@@ -275,6 +285,9 @@ export const COURSE_MODULES: CourseModule[] = [
         ],
       },
     ],
+    supportImages: [
+      "/fotosdeapoyo/4/59708c04-c77b-4127-843b-5d496a328373.jpg"
+    ]
   },
   {
     id: "modulo-5",
@@ -346,6 +359,10 @@ export const COURSE_MODULES: CourseModule[] = [
         ],
       }
     ],
+    supportImages: [
+      "/fotosdeapoyo/5/IMG_9462.JPG",
+      "/fotosdeapoyo/5/IMG_9463.JPG"
+    ]
   },
   {
     id: "modulo-6",
@@ -391,6 +408,9 @@ export const COURSE_MODULES: CourseModule[] = [
         ],
       }
     ],
+    supportImages: [
+      "/fotosdeapoyo/6/IMG_9482.PNG"
+    ]
   },
   {
     id: "modulo-7",

@@ -488,6 +488,28 @@ export const ModuleView: React.FC<ModuleViewProps> = ({
         {module.number === 7 && <PayoutFlow />}
       </motion.div>
 
+      {/* ── SUPPORT IMAGES ────────────────────────────────────────────────── */}
+      {module.supportImages && module.supportImages.length > 0 && (
+        <motion.div variants={fadeUp} className="bento-card p-5 space-y-4 mt-6">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-4 w-4" style={{ color: "#B78A3A" }} />
+            <h3 className="text-sm font-semibold" style={{ color: "#E6D8BE" }}>Material de Apoyo</h3>
+          </div>
+          <div className={`grid gap-4 ${module.supportImages.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
+            {module.supportImages.map((src, idx) => (
+              <div key={idx} className="relative rounded-xl overflow-hidden border" style={{ borderColor: "rgba(90,35,72,0.3)", background: "rgba(17,10,17,0.5)" }}>
+                <img
+                  src={src}
+                  alt={`Material de apoyo ${idx + 1}`}
+                  className="w-full h-auto object-contain rounded-xl"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
       {/* ── NAVIGATION ─────────────────────────────────────────────────────── */}
       <div
         className="flex items-center justify-between pt-6 border-t"

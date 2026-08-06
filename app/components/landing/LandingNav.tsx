@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Crown, ArrowRight } from "lucide-react";
 import { REFERRAL_LINK } from "../../data/course-data";
+import { UserMenu } from "../UserMenu";
 
 export function LandingNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -49,19 +50,14 @@ export function LandingNav() {
 
         {/* Actions */}
         <div className="flex items-center gap-3">
-          <Link
-            href="/curso"
-            className="btn-ghost rounded-xl px-4 py-2 text-xs font-semibold cursor-pointer"
-          >
-            Ir al curso
-          </Link>
+          <UserMenu />
           <a
             href={REFERRAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-gold flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold cursor-pointer"
           >
-            <span className="relative z-10">Empezar</span>
+            <span className="relative z-10">Afiliación</span>
             <ArrowRight className="h-3.5 w-3.5 relative z-10" />
           </a>
         </div>

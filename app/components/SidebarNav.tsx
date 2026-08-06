@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ShieldCheck, Crown, UserCheck, Settings, Camera,
   Flame, MessageCircleHeart, DollarSign,
-  CheckCircle2, Circle, X, ChevronRight,
+  CheckCircle2, Circle, X, ChevronRight, Lock
 } from "lucide-react";
 import { CourseModule } from "../data/course-data";
 
@@ -16,6 +16,8 @@ interface SidebarNavProps {
   toggleModuleComplete: (id: string) => void;
   isMobileOpen: boolean;
   setIsMobileOpen: (v: boolean) => void;
+  userRole?: string;
+  freeModuleIds?: string[];
 }
 
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -30,11 +32,12 @@ const ICON_MAP: Record<string, React.ReactNode> = {
 };
 
 const TimelineItem = ({
-  mod, isActive, isCompleted, onClick, onToggle, index,
+  mod, isActive, isCompleted, isLocked, onClick, onToggle, index,
 }: {
   mod: CourseModule;
   isActive: boolean;
   isCompleted: boolean;
+  isLocked: boolean;
   onClick: () => void;
   onToggle: (e: React.MouseEvent) => void;
   index: number;
@@ -43,26 +46,37 @@ const TimelineItem = ({
     initial={{ opacity: 0, x: -10 }}
     animate={{ opacity: 1, x: 0 }}
     transition={{ delay: index * 0.045, duration: 0.28 }}
-    className="relative flex gap-2.5 pl-1.5"
+    className={`relative flex gap-2.5 pl-1.5 ${isLocked ? 'opacity-75' : ''}`}
   >
     {/* Timeline dot */}
     <div className="relative z-10 flex flex-col items-center pt-3">
       <button
         onClick={onToggle}
         title={isCompleted ? "Marcar como no visto" : "Marcar como completado"}
+        disabled={isLocked}
         className={`h-5 w-5 rounded-full border flex items-center justify-center shrink-0 transition-all duration-200 ${
-          isCompleted
-            ? "border-[#B78A3A] text-[#111011]"
-            : isActive
-              ? "border-[#5A2348]"
-              : "border-[rgba(230,216,190,0.15)] hover:border-[rgba(90,35,72,0.5)]"
+          isLocked
+            ? "border-[rgba(230,216,190,0.1)] text-[rgba(230,216,190,0.3)] cursor-not-allowed"
+            : isCompleted
+              ? "border-[#B78A3A] text-[#111011]"
+              : isActive
+                ? "border-[#5A2348]"
+                : "border-[rgba(230,216,190,0.15)] hover:border-[rgba(90,35,72,0.5)]"
         }`}
-        style={isCompleted ? { background: "#B78A3A" } : isActive ? { background: "rgba(90,35,72,0.25)" } : { background: "rgba(17,10,17,0.6)" }}
-      >
-        {isCompleted
-          ? <CheckCircle2 className="h-3 w-3 text-[#111011]" />
-          : <Circle className="h-2.5 w-2.5" style={{ color: isActive ? "#5A2348" : "rgba(230,216,190,0.2)" }} />
+        style={
+          isLocked ? { background: "rgba(17,10,17,0.4)" } 
+          : isCompleted ? { background: "#B78A3A" } 
+          : isActive ? { background: "rgba(90,35,72,0.25)" } 
+          : { background: "rgba(17,10,17,0.6)" }
         }
+      >
+        {isLocked ? (
+          <Lock className="h-2.5 w-2.5" />
+        ) : isCompleted ? (
+          <CheckCircle2 className="h-3 w-3 text-[#111011]" />
+        ) : (
+          <Circle className="h-2.5 w-2.5" style={{ color: isActive ? "#5A2348" : "rgba(230,216,190,0.2)" }} />
+        )}
       </button>
     </div>
 
@@ -111,6 +125,7 @@ const TimelineItem = ({
 const SidebarContent = ({
   modules, activeModuleId, setActiveModuleId,
   completedModules, toggleModuleComplete, setIsMobileOpen,
+  userRole, freeModuleIds
 }: Omit<SidebarNavProps, "isMobileOpen">) => (
   <div className="flex h-full flex-col">
     {/* Header */}
@@ -126,17 +141,21 @@ const SidebarContent = ({
     {/* List */}
     <div className="relative flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
       <div className="timeline-line" />
-      {modules.map((mod, idx) => (
-        <TimelineItem
-          key={mod.id}
-          mod={mod}
-          index={idx}
-          isActive={mod.id === activeModuleId}
-          isCompleted={completedModules.includes(mod.id)}
-          onClick={() => { setActiveModuleId(mod.id); setIsMobileOpen(false); }}
-          onToggle={(e) => { e.stopPropagation(); toggleModuleComplete(mod.id); }}
-        />
-      ))}
+      {modules.map((mod, idx) => {
+        const isLocked = userRole === "free" && freeModuleIds && !freeModuleIds.includes(mod.id);
+        return (
+          <TimelineItem
+            key={mod.id}
+            mod={mod}
+            index={idx}
+            isActive={mod.id === activeModuleId}
+            isCompleted={completedModules.includes(mod.id)}
+            isLocked={!!isLocked}
+            onClick={() => { setActiveModuleId(mod.id); setIsMobileOpen(false); }}
+            onToggle={(e) => { e.stopPropagation(); toggleModuleComplete(mod.id); }}
+          />
+        );
+      })}
     </div>
 
     {/* Footer */}
@@ -151,8 +170,9 @@ const SidebarContent = ({
 export const SidebarNav: React.FC<SidebarNavProps> = ({
   modules, activeModuleId, setActiveModuleId,
   completedModules, toggleModuleComplete, isMobileOpen, setIsMobileOpen,
+  userRole, freeModuleIds
 }) => {
-  const props = { modules, activeModuleId, setActiveModuleId, completedModules, toggleModuleComplete, setIsMobileOpen };
+  const props = { modules, activeModuleId, setActiveModuleId, completedModules, toggleModuleComplete, setIsMobileOpen, userRole, freeModuleIds };
   return (
     <>
       <aside
