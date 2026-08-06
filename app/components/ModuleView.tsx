@@ -8,6 +8,7 @@ import {
   ArrowLeft, ArrowRight, Calculator, Flame, DollarSign, Sparkles,
 } from "lucide-react";
 import Image from "next/image";
+import { CommentsSection } from "./CommentsSection";
 
 const stagger: Variants = {
   hidden: {},
@@ -359,6 +360,9 @@ const PayoutFlow = () => (
         </div>
       ))}
     </div>
+
+    {/* Comentarios */}
+    <CommentsSection moduleId={module.id} userId={userId} />
   </motion.div>
 );
 
@@ -371,11 +375,12 @@ interface ModuleViewProps {
   onPrevModule?: () => void;
   hasNext: boolean;
   hasPrev: boolean;
+  userId?: string;
 }
 
 export const ModuleView: React.FC<ModuleViewProps> = ({
   module, isCompleted, onToggleComplete,
-  onNextModule, onPrevModule, hasNext, hasPrev,
+  onNextModule, onPrevModule, hasNext, hasPrev, userId
 }) => {
   const imgSrc = MODULE_IMAGES[module.number] || "https://images.unsplash.com/photo-1614680376408-81e91ffe3db7?w=900&q=80";
 

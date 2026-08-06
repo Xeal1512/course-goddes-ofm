@@ -98,8 +98,8 @@ export function HeroSection() {
           {/* Trust pills */}
           <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-4 list-none">
             {[
-              "Sin suscripción mensual",
-              "Acceso de por vida",
+              "Empieza gratis hoy",
+              "Pago único por acceso total",
               "Soporte por WhatsApp",
             ].map((t) => (
               <li

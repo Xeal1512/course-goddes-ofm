@@ -21,11 +21,11 @@ export async function loginAction(formData: FormData) {
   return redirect('/curso')
 }
 
-const getURL = () => {
+export const getURL = async () => {
   let url =
     process.env.NEXT_PUBLIC_SITE_URL ??
     (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : "http://localhost:3000");
-  url = url.endsWith('/') ? url.slice(0, -1) : url;
+  url = url.includes("http") ? url : `https://${url}`;
   return url;
 };
 

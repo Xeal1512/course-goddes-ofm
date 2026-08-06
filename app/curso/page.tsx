@@ -67,27 +67,41 @@ export default function CursoPage() {
   }, [router]);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(LS_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setCompleted(parsed);
-        // Si ya completó todos los módulos, disparar animación de confeti
-        if (parsed.length === COURSE_MODULES.length) {
-          confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-          });
+    async function loadProgress() {
+      if (!userId) return;
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("progress")
+          .select("module_id")
+          .eq("user_id", userId)
+          .eq("status", "completed");
+          
+        if (data && !error) {
+          const parsed = data.map(d => d.module_id);
+          setCompleted(parsed);
+          
+          if (parsed.length === COURSE_MODULES.length && COURSE_MODULES.length > 0) {
+            confetti({
+              particleCount: 100,
+              spread: 70,
+              origin: { y: 0.6 },
+            });
+          }
         }
+      } catch (err) {
+        console.error("Error loading progress:", err);
       }
-    } catch {}
-  }, []);
+    }
+    loadProgress();
+  }, [userId]);
 
-  const toggleComplete = (id: string) => {
+  const toggleComplete = async (id: string) => {
+    if (!userId) return;
+    const isNowCompleted = !completed.includes(id);
+
     setCompleted((prev) => {
       const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      try { localStorage.setItem(LS_KEY, JSON.stringify(next)); } catch {}
 
       // Si recién acaba de completar el último módulo
       if (next.length === COURSE_MODULES.length && prev.length < COURSE_MODULES.length) {
@@ -101,6 +115,13 @@ export default function CursoPage() {
 
       return next;
     });
+
+    const supabase = createClient();
+    if (!isNowCompleted) {
+      await supabase.from("progress").delete().eq("user_id", userId).eq("module_id", id);
+    } else {
+      await supabase.from("progress").insert({ user_id: userId, module_id: id, status: "completed" });
+    }
   };
 
   const filtered = useMemo(() => COURSE_MODULES.filter((m) => {
@@ -217,6 +238,7 @@ export default function CursoPage() {
               ) : (
                 <ModuleView
                   module={activeModule}
+                  userId={userId}
                   isCompleted={completed.includes(activeModule.id)}
                   onToggleComplete={() => toggleComplete(activeModule.id)}
                   onNextModule={goNext}

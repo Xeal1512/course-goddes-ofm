@@ -2,10 +2,10 @@
 import { TrendingUp, Lock, Globe, Users } from "lucide-react";
 
 const STATS = [
-  { value: "8 Módulos", label: "Contenido estructurado" },
+  { value: "12 Módulos", label: "Contenido estructurado" },
   { value: "100%", label: "Anónimo y seguro" },
   { value: "LATAM", label: "Cobro optimizado" },
-  { value: "Gratis", label: "Acceso con registro" },
+  { value: "Módulo 0 Gratis", label: "Acceso con registro" },
 ] as const;
 
 function StatCard({ value, label }: { value: string; label: string }) {

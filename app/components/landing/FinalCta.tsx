@@ -39,7 +39,7 @@ export function FinalCta() {
           className="text-4xl sm:text-5xl font-bold leading-tight"
           style={{ color: "#E6D8BE" }}
         >
-          El primer paso cuesta{" "}
+          Comienza hoy por {" "}
           <span className="font-display italic" style={{ color: "#B78A3A" }}>
             $0.
           </span>
@@ -49,8 +49,7 @@ export function FinalCta() {
           className="text-base leading-relaxed"
           style={{ color: "rgba(230,216,190,0.6)" }}
         >
-          Regístrate en OnlyFans con el enlace oficial Goddess OFM y accede al
-          curso completo de forma gratuita. Sin trucos. Sin sorpresas.
+          Crea tu cuenta de OnlyFans, regístrate en nuestra plataforma y accede al primer módulo del sistema completamente gratis. Comprueba el valor por ti misma antes de comprometerte.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
@@ -61,7 +60,7 @@ export function FinalCta() {
             className="btn-gold flex items-center gap-2.5 rounded-2xl px-10 py-4 text-sm font-bold w-full sm:w-auto justify-center cursor-pointer"
             style={{ boxShadow: "0 0 50px rgba(183,138,58,0.35)" }}
           >
-            <span className="relative z-10">Registrarme en OnlyFans</span>
+            <span className="relative z-10">Empieza tu prueba gratis</span>
             <ArrowRight
               className="h-5 w-5 relative z-10"
               aria-hidden="true"

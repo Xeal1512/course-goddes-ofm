@@ -3,44 +3,51 @@ import Link from "next/link";
 import {
   ShieldCheck, Crown, UserCheck, Camera,
   Flame, MessageCircleHeart, DollarSign,
-  Globe, ArrowRight,
+  Globe, ArrowRight, Lock,
 } from "lucide-react";
 
 const MODULES_PREVIEW = [
   {
     icon: ShieldCheck,
-    label: "Privacidad Total",
+    label: "Privacidad Total (Módulo 0)",
     desc: "Cuentas anónimas. Sin rastro. Sin riesgo.",
+    isFree: true,
   },
   {
     icon: Crown,
     label: "Perfil que Vende",
     desc: "Bio, foto, precio y psicología del comprador.",
+    isFree: false,
   },
   {
     icon: Camera,
     label: "Contenido Estratégico",
     desc: "Qué publicar, cuándo y con qué herramientas.",
+    isFree: false,
   },
   {
     icon: Flame,
     label: "Tráfico de Reddit",
     desc: "El método paso a paso para no ser baneada.",
+    isFree: false,
   },
   {
     icon: MessageCircleHeart,
     label: "Mensajería que convierte",
     desc: "Scripts probados para vender sin chatear horas.",
+    isFree: false,
   },
   {
     icon: DollarSign,
     label: "PPV & Suscripciones",
     desc: "Precios, paquetes y cuándo subir el valor.",
+    isFree: false,
   },
   {
     icon: Globe,
     label: "Cobro desde LATAM",
     desc: "Paxum, Binance P2P y bancos locales.",
+    isFree: false,
   },
 ] as const;
 
@@ -48,10 +55,12 @@ function ModuleCard({
   Icon,
   label,
   desc,
+  isFree,
 }: {
   Icon: React.ComponentType<{ className?: string }>;
   label: string;
   desc: string;
+  isFree?: boolean;
 }) {
   return (
     <div
@@ -61,15 +70,27 @@ function ModuleCard({
         borderColor: "rgba(90,35,72,0.35)",
       }}
     >
-      <div
-        className="flex h-10 w-10 items-center justify-center rounded-xl border"
-        style={{
-          background: "rgba(183,138,58,0.1)",
-          borderColor: "rgba(183,138,58,0.3)",
-          color: "#B78A3A",
-        }}
-      >
-        <Icon className="h-5 w-5" aria-hidden="true" />
+      <div className="flex items-center justify-between">
+        <div
+          className="flex h-10 w-10 items-center justify-center rounded-xl border"
+          style={{
+            background: "rgba(183,138,58,0.1)",
+            borderColor: "rgba(183,138,58,0.3)",
+            color: "#B78A3A",
+          }}
+        >
+          <Icon className="h-5 w-5" aria-hidden="true" />
+        </div>
+        
+        {isFree ? (
+          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-green-900/40 text-green-400 border border-green-800/50">
+            Gratis
+          </span>
+        ) : (
+          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded flex items-center gap-1" style={{ background: "rgba(90,35,72,0.4)", color: "rgba(230,216,190,0.6)", borderColor: "rgba(90,35,72,0.6)", borderWidth: 1 }}>
+            <Lock className="w-3 h-3" /> Premium
+          </span>
+        )}
       </div>
       <div>
         <h3 className="text-sm font-bold" style={{ color: "#E6D8BE" }}>
@@ -110,8 +131,15 @@ export function ModulesPreview() {
             className="text-3xl sm:text-4xl font-bold"
             style={{ color: "#E6D8BE" }}
           >
-            7 módulos. Cada uno con un resultado concreto.
+            12 módulos. Cada uno con un resultado concreto.
           </h2>
+        </div>
+        
+        {/* Banner Freemium */}
+        <div className="max-w-2xl mx-auto rounded-xl border p-4 text-center mb-8" style={{ background: "rgba(183,138,58,0.05)", borderColor: "rgba(183,138,58,0.2)" }}>
+           <p className="text-sm" style={{ color: "rgba(230,216,190,0.8)" }}>
+             💎 <strong style={{ color: "#B78A3A" }}>Modelo Freemium:</strong> El <strong>Módulo 0</strong> está completamente liberado para que pruebes el sistema sin compromiso.
+           </p>
         </div>
 
         {/* Grid */}
@@ -122,6 +150,7 @@ export function ModulesPreview() {
               Icon={mod.icon}
               label={mod.label}
               desc={mod.desc}
+              isFree={mod.isFree}
             />
           ))}
 
