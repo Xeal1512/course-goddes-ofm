@@ -360,9 +360,6 @@ const PayoutFlow = () => (
         </div>
       ))}
     </div>
-
-    {/* Comentarios */}
-    <CommentsSection moduleId={module.id} userId={userId} />
   </motion.div>
 );
 
@@ -514,6 +511,9 @@ export const ModuleView: React.FC<ModuleViewProps> = ({
           </div>
         </motion.div>
       )}
+
+      {/* ── COMMENTS ───────────────────────────────────────────────────────── */}
+      <CommentsSection moduleId={module.id} userId={userId} />
 
       {/* ── NAVIGATION ─────────────────────────────────────────────────────── */}
       <div
