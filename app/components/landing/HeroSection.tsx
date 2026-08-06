@@ -100,7 +100,7 @@ export function HeroSection() {
             {[
               "Sin suscripción mensual",
               "Acceso de por vida",
-              "Soporte por Telegram",
+              "Soporte por WhatsApp",
             ].map((t) => (
               <li
                 key={t}

@@ -13,7 +13,7 @@ const FEATURE_PILLS = [
   { Icon: Lock, label: "Privacidad total", sub: "Sin rastro digital" },
   { Icon: Clock, label: "Flexible", sub: "Desde 1 h/día" },
   { Icon: Globe, label: "Cobro LATAM", sub: "Sin banco internacional" },
-  { Icon: Users, label: "Comunidad", sub: "Soporte por Telegram" },
+  { Icon: Users, label: "Comunidad", sub: "Soporte por WhatsApp" },
 ] as const;
 
 export function ForWhomSection() {

@@ -377,7 +377,7 @@ export const ModuleView: React.FC<ModuleViewProps> = ({
   module, isCompleted, onToggleComplete,
   onNextModule, onPrevModule, hasNext, hasPrev,
 }) => {
-  const imgSrc = MODULE_IMAGES[module.number];
+  const imgSrc = MODULE_IMAGES[module.number] || "https://images.unsplash.com/photo-1614680376408-81e91ffe3db7?w=900&q=80";
 
   return (
     <motion.div

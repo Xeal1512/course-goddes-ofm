@@ -25,16 +25,6 @@ export function ProblemSolution() {
               Ninguna pensada para LATAM.
             </span>
           </h2>
-          <p
-            className="text-sm leading-relaxed"
-            style={{ color: "rgba(230,216,190,0.55)" }}
-          >
-            La mayoría del contenido sobre OnlyFans está en inglés, para
-            creadoras de Estados Unidos o Europa con PayPal y tarjetas sin
-            restricciones. Si eres de México, Colombia, Argentina o Venezuela,
-            encontraste las mismas barreras: cómo cobrar, cómo no ser
-            identificada, cómo generar tráfico sin pagar publicidad.
-          </p>
         </div>
 
         {/* Gold divider */}

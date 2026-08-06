@@ -21,11 +21,19 @@ export async function loginAction(formData: FormData) {
   return redirect('/curso')
 }
 
+export const getURL = () => {
+  let url =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : "http://localhost:3000");
+  url = url.endsWith('/') ? url.slice(0, -1) : url;
+  return url;
+};
+
 export async function signupAction(formData: FormData) {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   const fullName = formData.get('fullName') as string
-  const origin = (await headers()).get('origin')
+  const origin = getURL()
   const supabase = await createClient()
 
   const { error } = await supabase.auth.signUp({
@@ -47,7 +55,7 @@ export async function signupAction(formData: FormData) {
 }
 
 export async function signInWithGoogleAction() {
-  const origin = (await headers()).get('origin')
+  const origin = getURL()
   const supabase = await createClient()
 
   const { data, error } = await supabase.auth.signInWithOAuth({
